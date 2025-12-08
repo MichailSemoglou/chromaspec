@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "ChromaSpec"
+abstract: "A Python CLI tool for color palette analysis. Extract colors from images and SVG files, generate professional PDF swatches with HEX/RGB/CMYK values, frequency stats, pie charts, color harmonies, and WCAG accessibility ratings."
+authors:
+  - family-names: "Semoglou"
+    given-names: "Michail"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+version: "1.0.0"
+date-released: "2025-12-08"
+license: MIT
+repository-code: "https://github.com/MichailSemoglou/chromaspec"
+url: "https://github.com/MichailSemoglou/chromaspec"
+keywords:
+  - color
+  - palette
+  - color-extraction
+  - image-analysis
+  - svg
+  - pdf
+  - color-swatch
+  - design
+  - accessibility
+  - wcag
+  - python
