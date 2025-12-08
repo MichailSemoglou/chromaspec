@@ -15,12 +15,12 @@ A Python tool for color palette analysis that extracts colors from SVG or image 
 
 ### Designer Visualizations
 
-- **📊 Color Distribution** - Pie chart and bar chart showing RGB breakdown
-- **🎨 Top Colors & Harmonies** - Shows the 5 most used colors with:
+- **Color Distribution** - Pie chart and bar chart showing RGB breakdown
+- **Top Colors & Harmonies** - Shows the 5 most used colors with:
   - HSL (Hue, Saturation, Lightness) values
   - Complementary color (opposite on color wheel)
   - Analogous colors (adjacent ±30° on color wheel)
-- **♿ Accessibility & Contrast** - WCAG 2.1 compliance checker:
+- **Accessibility & Contrast** - WCAG 2.1 compliance checker:
   - Contrast ratios against white and black backgrounds
   - AAA/AA/AA Large/Fail ratings
   - Recommendations for dark or light backgrounds
@@ -106,19 +106,19 @@ The generated PDF contains:
    - Image preview (for image files)
    - Color summary (count of Red, Green, Blue colors)
 
-2. **📊 Color Distribution page** with:
+2. **Color Distribution page** with:
 
    - Pie chart showing RGB distribution
    - Bar chart comparing color counts
    - Percentage breakdown
 
-3. **🎨 Top Colors & Harmonies page** with:
+3. **Top Colors & Harmonies page** with:
 
    - The 5 most frequently used colors
    - HSL values for each color
    - Complementary and analogous color suggestions
 
-4. **♿ Accessibility & Contrast page** with:
+4. **Accessibility & Contrast page** with:
 
    - WCAG contrast ratios vs white and black
    - AAA/AA/Fail ratings for each color

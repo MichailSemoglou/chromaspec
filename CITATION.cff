@@ -6,7 +6,7 @@ abstract: "A Python CLI tool for color palette analysis. Extract colors from ima
 authors:
   - family-names: "Semoglou"
     given-names: "Michail"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
+    orcid: "https://orcid.org/0009-0003-3268-5657"
 version: "1.0.0"
 date-released: "2025-12-08"
 license: MIT
