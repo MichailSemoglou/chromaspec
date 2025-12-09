@@ -1,5 +1,9 @@
 # ChromaSpec
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17864788.svg)](https://doi.org/10.5281/zenodo.17864788)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+
 A Python tool for color palette analysis that extracts colors from SVG or image files (PNG, JPG, etc.) and generates a professional PDF color swatch document with designer-friendly visualizations organized by Red, Green, and Blue sections.
 
 ## Features
@@ -157,6 +161,21 @@ A color is classified based on its dominant RGB component:
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
+
+## Citation
+
+If you use ChromaSpec in your research, please cite it:
+
+```bibtex
+@software{semoglou_chromaspec_2025,
+  author       = {Semoglou, Michail},
+  title        = {ChromaSpec: Color Palette Analyzer},
+  year         = {2025},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.17864788},
+  url          = {https://doi.org/10.5281/zenodo.17864788}
+}
+```
 
 ## Contributing
 
