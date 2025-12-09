@@ -789,10 +789,14 @@ def draw_accessibility_page(pdf: canvas.Canvas, color_categories: Dict[str, List
     
     pdf.setFont("Courier-Bold", 10)
     pdf.setFillColor("black")
-    pdf.drawString(MARGIN, y, "Color")
-    pdf.drawString(MARGIN + 1.5 * inch, y, "vs White")
-    pdf.drawString(MARGIN + 2.8 * inch, y, "vs Black")
-    pdf.drawString(MARGIN + 4.1 * inch, y, "Best For")
+    col1 = MARGIN
+    col2 = MARGIN + 1.5 * inch
+    col3 = MARGIN + 3.0 * inch
+    col4 = MARGIN + 4.5 * inch
+    pdf.drawString(col1, y, "Color")
+    pdf.drawString(col2, y, "vs White")
+    pdf.drawString(col3, y, "vs Black")
+    pdf.drawString(col4, y, "Best Use")
     y -= 0.35 * inch
     
     pdf.setStrokeColor("gray")
@@ -820,7 +824,7 @@ def draw_accessibility_page(pdf: canvas.Canvas, color_categories: Dict[str, List
             pdf.setFillColor("#F39C12")
         else:
             pdf.setFillColor("#E74C3C")
-        pdf.drawString(MARGIN + 1.5 * inch, y - box_size / 2 - 3, f"{ratio_white:.1f}:1 ({rating_white})")
+        pdf.drawString(col2, y - box_size / 2 - 3, f"{ratio_white:.1f}:1 ({rating_white})")
         
         if rating_black in ["AAA", "AA"]:
             pdf.setFillColor("#2ECC71")
@@ -828,14 +832,14 @@ def draw_accessibility_page(pdf: canvas.Canvas, color_categories: Dict[str, List
             pdf.setFillColor("#F39C12")
         else:
             pdf.setFillColor("#E74C3C")
-        pdf.drawString(MARGIN + 2.8 * inch, y - box_size / 2 - 3, f"{ratio_black:.1f}:1 ({rating_black})")
+        pdf.drawString(col3, y - box_size / 2 - 3, f"{ratio_black:.1f}:1 ({rating_black})")
         
         pdf.setFillColor("black")
         if ratio_white > ratio_black:
-            best_use = "Dark backgrounds"
+            best_use = "White text on color"
         else:
-            best_use = "Light backgrounds"
-        pdf.drawString(MARGIN + 4.1 * inch, y - box_size / 2 - 3, best_use)
+            best_use = "Black text on color"
+        pdf.drawString(col4, y - box_size / 2 - 3, best_use)
         
         y -= box_size + 0.2 * inch
     
