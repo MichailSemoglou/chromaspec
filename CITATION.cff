@@ -8,7 +8,8 @@ authors:
     given-names: "Michail"
     orcid: "https://orcid.org/0009-0003-3268-5657"
 version: "1.0.0"
-date-released: "2025-12-08"
+doi: "10.5281/zenodo.17864788"
+date-released: "2025-12-09"
 license: MIT
 repository-code: "https://github.com/MichailSemoglou/chromaspec"
 url: "https://github.com/MichailSemoglou/chromaspec"
