@@ -6,7 +6,7 @@ and accessibility ratings for color pairs.
 """
 
 import logging
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from chromaspec.converters import calculate_luminance, hex_to_rgb
 from chromaspec.utils.constants import WCAGThresholds
@@ -52,7 +52,7 @@ def get_wcag_rating(contrast_ratio: float) -> str:
 
 
 def analyze_contrast_with_backgrounds(
-    color: str, backgrounds: List[str] = None
+    color: str, backgrounds: Optional[List[str]] = None
 ) -> Dict[str, Dict]:
     """
     Analyze contrast of a color against multiple background colors.
@@ -72,7 +72,7 @@ def analyze_contrast_with_backgrounds(
 
     for bg_color in backgrounds:
         ratio = get_contrast_ratio(color, bg_color)
-        rating = get_wcag_rating(rating=ratio)
+        rating = get_wcag_rating(ratio)
 
         # Determine best use
         if bg_color == "#FFFFFF":

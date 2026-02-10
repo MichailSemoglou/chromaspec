@@ -51,9 +51,9 @@ def configure_container() -> None:
     """Configure default services."""
     from chromaspec.analyzers.classification import categorize_colors
     from chromaspec.extractors.image_extractor import extract_colors_from_image
-    from chromaspec.extractors.svg_extractor import extract_colors_from_svg
+    from chromaspec.extractors.svg_extractor import extract_colors_from_svg_safe
 
     container = get_container()
     container.register("image_extractor", lambda: extract_colors_from_image)
-    container.register("svg_extractor", lambda: extract_colors_from_svg)
+    container.register("svg_extractor", lambda: extract_colors_from_svg_safe)
     container.register("color_categorizer", lambda: categorize_colors)

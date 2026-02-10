@@ -7,7 +7,7 @@ making it easier to add new file formats or extraction methods.
 
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Optional
 
 
 class ColorExtractionStrategy(ABC):
@@ -27,7 +27,9 @@ class ColorExtractionStrategy(ABC):
         pass
 
     @abstractmethod
-    def extract(self, file_path: Path, max_colors: int = None) -> Dict[str, float]:
+    def extract(
+        self, file_path: Path, max_colors: Optional[int] = None
+    ) -> Dict[str, float]:
         """
         Extract colors from the file.
 
@@ -50,7 +52,9 @@ class ImageExtractionStrategy(ColorExtractionStrategy):
 
         return file_path.suffix.lower() in IMAGE_EXTENSIONS
 
-    def extract(self, file_path: Path, max_colors: int = None) -> Dict[str, float]:
+    def extract(
+        self, file_path: Path, max_colors: Optional[int] = None
+    ) -> Dict[str, float]:
         """Extract colors from image."""
         from chromaspec.extractors.image_extractor import extract_colors_from_image
 
@@ -66,11 +70,13 @@ class SVGExtractionStrategy(ColorExtractionStrategy):
 
         return file_path.suffix.lower() in SVG_EXTENSIONS
 
-    def extract(self, file_path: Path, max_colors: int = None) -> Dict[str, float]:
+    def extract(
+        self, file_path: Path, max_colors: Optional[int] = None
+    ) -> Dict[str, float]:
         """Extract colors from SVG."""
-        from chromaspec.extractors.svg_extractor import extract_colors_from_svg
+        from chromaspec.extractors.svg_extractor import extract_colors_from_svg_safe
 
-        return extract_colors_from_svg(file_path, max_colors)
+        return extract_colors_from_svg_safe(file_path, max_colors)
 
 
 class ColorExtractor:
@@ -87,7 +93,7 @@ class ColorExtractor:
         self._strategies.append(strategy)
 
     def extract_colors(
-        self, file_path: Path, max_colors: int = None
+        self, file_path: Path, max_colors: Optional[int] = None
     ) -> Dict[str, float]:
         """
         Extract colors using the appropriate strategy.

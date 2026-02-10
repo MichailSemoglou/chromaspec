@@ -5,7 +5,7 @@ A professional Python package for color palette extraction, analysis, and visual
 [![PyPI version](https://badge.fury.io/py/chromaspec.svg)](https://badge.fury.io/py/chromaspec)
 [![Tests](https://github.com/MichailSemoglou/chromaspec/actions/workflows/test.yml/badge.svg)](https://github.com/MichailSemoglou/chromaspec/actions/workflows/test.yml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17864788.svg)](https://doi.org/10.5281/zenodo.17864788)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Documentation

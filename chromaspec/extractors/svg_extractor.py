@@ -9,7 +9,7 @@ import logging
 import re
 from collections import Counter
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Optional
 
 try:
     import defusedxml.ElementTree as ET
@@ -73,7 +73,7 @@ def extract_hex_colors_from_svg(svg_content: str) -> Dict[str, float]:
 
 
 def extract_colors_from_svg_safe(
-    svg_path: Path, max_colors: int = None
+    svg_path: Path, max_colors: Optional[int] = None
 ) -> Dict[str, float]:
     """
     Extract colors from SVG file with XXE protection.
@@ -110,7 +110,7 @@ def extract_colors_from_svg_safe(
         root = tree.getroot()
 
         # Extract colors from attributes
-        colors = Counter()
+        colors: Counter = Counter()
 
         # Iterate through all elements
         for elem in root.iter():

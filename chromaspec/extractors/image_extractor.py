@@ -8,7 +8,7 @@ with optimized memory usage.
 import logging
 from collections import Counter
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Optional
 
 try:
     from PIL import Image
@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 
 def extract_colors_from_image(
-    image_path: Path, max_colors: int = None
+    image_path: Path, max_colors: Optional[int] = None
 ) -> Dict[str, float]:
     """
     Extract dominant colors from an image file with their frequencies.

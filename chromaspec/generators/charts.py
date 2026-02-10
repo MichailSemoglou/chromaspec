@@ -46,7 +46,7 @@ def draw_pie_chart(
         (ColorConstants.GRAY_LIGHT, total_blue / total * 360, "Blue"),
     ]
 
-    start_angle = 90
+    start_angle: float = 90
     for color, angle, _ in colors_data:
         if angle > 0:
             pdf.setFillColorRGB(*color)

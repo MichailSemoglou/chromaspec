@@ -11,7 +11,7 @@ import logging
 import signal
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Optional
+from typing import Dict, Optional
 
 from chromaspec.exceptions import ValidationError
 
@@ -256,6 +256,10 @@ def validate_file_size(file_path: Path, max_size_mb: int) -> bool:
     return True
 
 
+# Module-level storage for rate limiting (resets on process restart)
+_rate_limit_requests: Dict[str, list] = {}
+
+
 def rate_limit_check(
     key: str, max_requests: int = 100, window_seconds: int = 60
 ) -> bool:
@@ -274,29 +278,22 @@ def rate_limit_check(
     """
     from datetime import datetime, timedelta
 
-    # In production, store this in Redis or similar
-    # For now, using module-level dict (will reset on process restart)
-    if not hasattr(rate_limit_check, "requests"):
-        rate_limit_check.requests = {}
-
     now = datetime.now()
     window = timedelta(seconds=window_seconds)
 
     # Clean old entries
-    if key not in rate_limit_check.requests:
-        rate_limit_check.requests[key] = []
+    if key not in _rate_limit_requests:
+        _rate_limit_requests[key] = []
 
-    rate_limit_check.requests[key] = [
-        timestamp
-        for timestamp in rate_limit_check.requests[key]
-        if now - timestamp < window
+    _rate_limit_requests[key] = [
+        timestamp for timestamp in _rate_limit_requests[key] if now - timestamp < window
     ]
 
     # Check limit
-    if len(rate_limit_check.requests[key]) >= max_requests:
+    if len(_rate_limit_requests[key]) >= max_requests:
         logger.warning(f"Rate limit exceeded for key: {key}")
         return False
 
     # Record request
-    rate_limit_check.requests[key].append(now)
+    _rate_limit_requests[key].append(now)
     return True

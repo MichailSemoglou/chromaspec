@@ -202,7 +202,7 @@ def suggest_dark_mode_adjustments(
     dark_background: str = "#121212",
     target_rating: str = "AA",
     max_iterations: int = 10,
-) -> List[Dict[str, str]]:
+) -> List[Dict[str, object]]:
     """Suggest adjustments to make text color dark mode compatible.
 
     Args:
