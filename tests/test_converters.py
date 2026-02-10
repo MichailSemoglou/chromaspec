@@ -121,7 +121,7 @@ class TestHslToRgb:
     """Tests for hsl_to_rgb function."""
 
     @pytest.mark.parametrize(
-        "h, s, l, expected_rgb",
+        "h, s, lightness, expected_rgb",
         [
             (0, 100, 50, (255, 0, 0)),
             (120, 100, 50, (0, 255, 0)),
