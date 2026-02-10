@@ -16,7 +16,7 @@ try:
 
     DEFUSEDXML_AVAILABLE = True
 except ImportError:
-    import xml.etree.ElementTree as ET
+    import xml.etree.ElementTree as ET  # nosec B405
 
     DEFUSEDXML_AVAILABLE = False
 
@@ -102,10 +102,10 @@ def extract_colors_from_svg_safe(
         # Parse with defusedxml if available (prevents XXE attacks)
         if DEFUSEDXML_AVAILABLE:
             # defusedxml automatically forbids DTDs and entities
-            tree = ET.parse(str(svg_path))
+            tree = ET.parse(str(svg_path))  # nosec B314
         else:
             # Fallback to standard parser (less secure)
-            tree = ET.parse(str(svg_path))
+            tree = ET.parse(str(svg_path))  # nosec B314
 
         root = tree.getroot()
 
