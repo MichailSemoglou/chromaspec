@@ -7,7 +7,7 @@ authors:
   - family-names: "Semoglou"
     given-names: "Michail"
     orcid: "https://orcid.org/0009-0003-3268-5657"
-version: "1.1.0"
+version: "1.1.1"
 doi: "10.5281/zenodo.17864788"
 date-released: "2026-02-10"
 license: MIT

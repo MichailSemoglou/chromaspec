@@ -7,32 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- Dependency injection container (`chromaspec/container.py`) for better testability
-- Strategy pattern for color extraction (`chromaspec/extractors/strategies.py`)
-- Comprehensive security utilities (`chromaspec/utils/security.py`):
-  - Path traversal protection
-  - Filename sanitization
-  - PDF string sanitization
-  - File hash calculation for caching
-  - Timeout context manager
-  - Rate limiting support
-- Comprehensive code review and improvement recommendations document
-
-### Changed
-
-- Improved error messages for validation failures
-- Enhanced type hints coverage across modules
+## [1.1.1] - 2026-02-10
 
 ### Fixed
 
-- **CRITICAL**: Version synchronization between pyproject.toml and **init**.py (now both 1.1.0)
+- Fixed all mypy type errors (Optional types, incorrect function calls, return type annotations)
+- Fixed isort/black formatting conflicts by adding `[tool.isort] profile = "black"` to pyproject.toml
+- Fixed CI workflow: added `--profile black` to isort check, use `python -m pytest`
+- Fixed missing `[project.optional-dependencies] dev` section in pyproject.toml
+- Removed unused imports and ambiguous variable names across codebase
+- Fixed `extract_colors_from_svg` reference to `extract_colors_from_svg_safe` in strategies and container
 
-### Security
+### Changed
 
-- Added security validation utilities to prevent common vulnerabilities
-- Prepared infrastructure for XXE attack prevention (awaiting defusedxml integration)
+- Dropped Python 3.8 support (EOL since October 2024, incompatible with ReportLab 4.x)
+- Minimum Python version is now 3.9+
+- Removed codecov badge and CI integration (not configured)
+- Cleaned up README documentation links to reference only existing files
 
 ## [1.1.0] - 2026-02-10
 

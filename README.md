@@ -424,7 +424,7 @@ If you use ChromaSpec in your research, please cite:
 @software{chromaspec,
   author = {Semoglou, Michail},
   title = {ChromaSpec: Color Palette Analyzer},
-  version = {1.1.0},
+  version = {1.1.1},
   year = {2026},
   url = {https://github.com/MichailSemoglou/chromaspec},
   doi = {10.5281/zenodo.17864788}
