@@ -2,10 +2,14 @@
 
 A professional Python package for color palette extraction, analysis, and visualization from SVG and image files.
 
+[![PyPI version](https://badge.fury.io/py/chromaspec.svg)](https://badge.fury.io/py/chromaspec)
 [![Tests](https://github.com/MichailSemoglou/chromaspec/actions/workflows/test.yml/badge.svg)](https://github.com/MichailSemoglou/chromaspec/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/MichailSemoglou/chromaspec/branch/main/graph/badge.svg)](https://codecov.io/gh/MichailSemoglou/chromaspec)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17864788.svg)](https://doi.org/10.5281/zenodo.17864788)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 📚 Documentation
+## Documentation
 
 - **[Getting Started](#quick-start)** - Basic usage examples
 - **[Code Review & Recommendations](CODE_REVIEW_RECOMMENDATIONS.md)** - Comprehensive analysis and improvement roadmap
@@ -360,29 +364,29 @@ pre-commit run --all-files
 
 ```
 chromaspec/
-├── __init__.py              # Package initialization
-├── cli.py                  # Command-line interface with batch support
-├── exceptions.py            # Custom exception hierarchy
-├── analyzers/              # Color analysis modules
-│   ├── classification.py   # Color categorization
-│   ├── harmonies.py        # Color harmony calculations
-│   ├── accessibility.py   # WCAG contrast analysis
-│   └── dark_mode.py       # Dark mode compatibility checker
-├── converters/             # Color conversion modules
-│   ├── rgb_converters.py   # RGB, CMYK, HEX conversions
-│   └── hsl_converters.py  # HSL conversions
-├── extractors/             # Color extraction modules
-│   ├── svg_extractor.py   # SVG color extraction
-│   └── image_extractor.py # Image color extraction
-├── generators/             # PDF generation modules
-│   ├── pdf_pages.py       # PDF page layouts
-│   ├── charts.py          # Chart generation
+├── __init__.py                # Package initialization
+├── cli.py                     # Command-line interface with batch support
+├── exceptions.py              # Custom exception hierarchy
+├── analyzers/                 # Color analysis modules
+│   ├── classification.py      # Color categorization
+│   ├── harmonies.py           # Color harmony calculations
+│   ├── accessibility.py       # WCAG contrast analysis
+│   └── dark_mode.py           # Dark mode compatibility checker
+├── converters/                # Color conversion modules
+│   ├── rgb_converters.py      # RGB, CMYK, HEX conversions
+│   └── hsl_converters.py      # HSL conversions
+├── extractors/                # Color extraction modules
+│   ├── svg_extractor.py       # SVG color extraction
+│   └── image_extractor.py     # Image color extraction
+├── generators/                # PDF generation modules
+│   ├── pdf_pages.py           # PDF page layouts
+│   ├── charts.py              # Chart generation
 │   ├── accessibility_page.py
-│   ├── palette.py         # Color palette generator
-│   └── pdf_generator.py   # Main PDF generator
-└── utils/                  # Utility modules
-    ├── constants.py       # Configuration constants
-    └── validators.py     # Input validation
+│   ├── palette.py             # Color palette generator
+│   └── pdf_generator.py       # Main PDF generator
+└── utils/                     # Utility modules
+    ├── constants.py           # Configuration constants
+    └── validators.py          # Input validation
 ```
 
 ## Performance Optimizations
@@ -421,8 +425,10 @@ If you use ChromaSpec in your research, please cite:
 @software{chromaspec,
   author = {Semoglou, Michail},
   title = {ChromaSpec: Color Palette Analyzer},
-  year = {2024},
-  url = {https://github.com/MichailSemoglou/chromaspec}
+  version = {1.1.0},
+  year = {2026},
+  url = {https://github.com/MichailSemoglou/chromaspec},
+  doi = {10.5281/zenodo.17864788}
 }
 ```
 
