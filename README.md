@@ -4,7 +4,6 @@ A professional Python package for color palette extraction, analysis, and visual
 
 [![PyPI version](https://badge.fury.io/py/chromaspec.svg)](https://badge.fury.io/py/chromaspec)
 [![Tests](https://github.com/MichailSemoglou/chromaspec/actions/workflows/test.yml/badge.svg)](https://github.com/MichailSemoglou/chromaspec/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/MichailSemoglou/chromaspec/branch/main/graph/badge.svg)](https://codecov.io/gh/MichailSemoglou/chromaspec)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17864788.svg)](https://doi.org/10.5281/zenodo.17864788)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -12,11 +11,11 @@ A professional Python package for color palette extraction, analysis, and visual
 ## Documentation
 
 - **[Getting Started](#quick-start)** - Basic usage examples
-- **[Code Review & Recommendations](CODE_REVIEW_RECOMMENDATIONS.md)** - Comprehensive analysis and improvement roadmap
-- **[Implementation Guide](IMPLEMENTATION_GUIDE.md)** - Quick reference for implementing recommendations
+- **[Features](#features)** - Complete feature list
+- **[Python API](#python-api)** - Programmatic usage
+- **[Module Documentation](#module-documentation)** - Detailed API reference
 - **[Contributing](CONTRIBUTING.md)** - How to contribute to the project
 - **[Changelog](CHANGELOG.md)** - Version history and release notes
-- **[Review Summary](REVIEW_SUMMARY.md)** - Executive summary of code review findings
 
 ## Features
 
