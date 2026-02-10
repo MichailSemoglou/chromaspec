@@ -1,162 +1,413 @@
 # ChromaSpec
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17864788.svg)](https://doi.org/10.5281/zenodo.17864788)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+A professional Python package for color palette extraction, analysis, and visualization from SVG and image files.
 
-A Python tool for color palette analysis that extracts colors from SVG or image files (PNG, JPG, etc.) and generates a professional PDF color swatch document with designer-friendly visualizations organized by Red, Green, and Blue sections.
+[![Tests](https://github.com/MichailSemoglou/chromaspec/actions/workflows/test.yml/badge.svg)](https://github.com/MichailSemoglou/chromaspec/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/MichailSemoglou/chromaspec/branch/main/graph/badge.svg)](https://codecov.io/gh/MichailSemoglou/chromaspec)
+
+## 📚 Documentation
+
+- **[Getting Started](#quick-start)** - Basic usage examples
+- **[Code Review & Recommendations](CODE_REVIEW_RECOMMENDATIONS.md)** - Comprehensive analysis and improvement roadmap
+- **[Implementation Guide](IMPLEMENTATION_GUIDE.md)** - Quick reference for implementing recommendations
+- **[Contributing](CONTRIBUTING.md)** - How to contribute to the project
+- **[Changelog](CHANGELOG.md)** - Version history and release notes
+- **[Review Summary](REVIEW_SUMMARY.md)** - Executive summary of code review findings
 
 ## Features
 
-### Color Extraction
-
-- Extracts colors from **SVG files** (via regex) and **image files** (via pixel analysis)
-- Organizes colors into **Red**, **Green**, and **Blue** sections
-- Displays **HEX**, **RGB**, and **CMYK** color values
-- Shows **frequency percentage** for each color
-- Supports both 3-digit (`#ABC`) and 6-digit (`#AABBCC`) HEX formats
-- Supports multiple image formats: PNG, JPG, JPEG, GIF, BMP, TIFF, WebP
-
-### Designer Visualizations
-
-- **Color Distribution** - Pie chart and bar chart showing RGB breakdown
-- **Top Colors & Harmonies** - Shows the 5 most used colors with:
-  - HSL (Hue, Saturation, Lightness) values
-  - Complementary color (opposite on color wheel)
-  - Analogous colors (adjacent ±30° on color wheel)
-- **Accessibility & Contrast** - WCAG 2.1 compliance checker:
-  - Contrast ratios against white and black backgrounds
-  - AAA/AA/AA Large/Fail ratings
-  - Recommendations for dark or light backgrounds
-
-### PDF Features
-
-- **Cover page** with image preview and color summary
-- **Headers and footers** on all pages with page numbers
-- Colors sorted by frequency (most common first)
-- Clean monospaced Courier font for consistent alignment
-- Command-line interface with flexible options
+- **Color Extraction**: Extract colors from SVG files and image formats (PNG, JPG, JPEG, GIF, BMP, TIFF, WEBP)
+- **Color Analysis**:
+  - Color categorization (Red, Green, Blue)
+  - Color harmonies (Complementary, Analogous, Split-Complementary, Triadic)
+  - WCAG 2.1 accessibility analysis and contrast ratios
+  - **Dark mode compatibility** - Verify colors work in both light and dark themes
+- **Color Palette Generator**: Generate harmonious palettes with WCAG accessibility compliance
+  - Complementary palettes (2 colors)
+  - Triadic palettes (3 colors, 120° apart)
+  - Split-complementary palettes (3 colors)
+  - Tetradic palettes (4 colors, 90° apart)
+- **Color Conversions**: RGB, HSL, CMYK, and HEX formats
+- **PDF Reports**: Generate comprehensive color swatch documents with visualizations
+- **Batch Processing**: Process multiple files at once via CLI with consolidated reports
+- **Security**: Input validation and protection against DoS/ReDoS attacks
+- **Performance**: Optimized image processing with LRU caching
 
 ## Installation
 
-1. Clone the repository:
-
 ```bash
-git clone https://github.com/MichailSemoglou/chromaspec.git
-cd chromaspec
+pip install chromaspec
 ```
 
-2. Create a virtual environment (recommended):
+For image processing support:
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate  # On macOS/Linux
+pip install chromaspec[image]
 # or
-venv\Scripts\activate  # On Windows
+pip install Pillow
 ```
 
-3. Install dependencies:
+For development:
 
 ```bash
-pip install -r requirements.txt
+pip install chromaspec[dev]
 ```
 
-## Usage
+## Quick Start
 
-### Basic Usage
+### Command Line
 
 ```bash
-# From SVG file
-python chromaspec.py input.svg
+# Process an SVG file
+chromaspec image.svg
 
-# From image file
-python chromaspec.py photo.png
-python chromaspec.py image.jpg
+# Process an image file
+chromaspec photo.png
+
+# Specify custom output
+chromaspec image.jpg custom_report.pdf
+
+# Batch process multiple files (generates consolidated JSON report)
+chromaspec --batch --pattern "*.svg" --output report.json
+
+# Batch process with individual PDFs
+chromaspec --batch --pattern "images/*.png" --pdfs
+
+# Batch process with CSV output
+chromaspec --batch --pattern "*.jpg" --output results.csv --format csv
+
+# Enable verbose logging
+chromaspec image.svg -v
+
+# Suppress output except errors
+chromaspec image.png -q
 ```
 
-This will create `<input_name>_colors.pdf` in the same directory.
+### Python API
 
-### Custom Output Path
+```python
+from pathlib import Path
+from chromaspec import ChromaSpec
+
+# Initialize analyzer
+analyzer = ChromaSpec()
+
+# Extract colors from a file
+colors = analyzer.extract_colors(Path("image.png"))
+
+# Analyze colors
+categories = analyzer.categorize_colors(colors)
+
+# Generate color harmonies
+from chromaspec.analyzers import get_complementary_color
+comp = get_complementary_color("#FF0000")
+
+# Check accessibility
+from chromaspec.analyzers import get_contrast_ratio, get_wcag_rating
+ratio = get_contrast_ratio("#FF0000", "#FFFFFF")
+rating = get_wcag_rating(ratio)
+
+# Generate color palettes with accessibility
+from chromaspec.generators import (
+    ColorPalette,
+    generate_accessibility_palette,
+    generate_triadic_palette,
+)
+palette = generate_triadic_palette("#FF0000", target_rating="AA")
+print(f"Primary: {palette.primary}")
+print(f"Secondary: {palette.secondary}")
+print(f"Background: {palette.background}")
+print(f"WCAG Rating: {palette.wcag_rating}")
+
+# Check dark mode compatibility
+from chromaspec.analyzers import check_dark_mode_compatibility
+result = check_dark_mode_compatibility("#FF0000")
+print(f"Compatible: {result.is_compatible}")
+print(f"Light mode: {result.light_contrast:.2f}:1 ({result.light_rating})")
+print(f"Dark mode: {result.dark_contrast:.2f}:1 ({result.dark_rating})")
+```
+
+## Supported File Formats
+
+- **SVG**: `.svg`
+- **Images**: `.png`, `.jpg`, `.jpeg`, `.gif`, `.bmp`, `.tiff`, `.webp`
+
+## New Features Documentation
+
+### Color Palette Generator
+
+Generate harmonious color palettes that meet WCAG accessibility standards:
+
+```python
+from chromaspec.generators import (
+    generate_accessibility_palette,
+    generate_triadic_palette,
+    generate_split_complementary_palette,
+    generate_tetradic_palette,
+)
+
+# Generate complementary palette (2 colors)
+palette = generate_accessibility_palette("#FF0000", target_rating="AA")
+print(palette)
+
+# Generate triadic palette (3 colors, 120° apart)
+palette = generate_triadic_palette("#3B82F6", target_rating="AAA")
+
+# Generate split-complementary palette
+palette = generate_split_complementary_palette("#10B981")
+
+# Generate tetradic palette (4 colors, 90° apart)
+palette = generate_tetradic_palette("#8B5CF6")
+```
+
+### Dark Mode Compatibility Checker
+
+Verify that colors work well in both light and dark themes:
+
+```python
+from chromaspec.analyzers import (
+    check_dark_mode_compatibility,
+    generate_dark_mode_palette,
+    get_compatible_text_color,
+    suggest_dark_mode_adjustments,
+)
+
+# Check a single color
+result = check_dark_mode_compatibility("#333333")
+if result.is_compatible:
+    print("✓ Color works in both modes")
+else:
+    print("✗ Color needs adjustment")
+
+# Generate a full palette tested for dark mode
+results = generate_dark_mode_palette("#FF0000")
+for color_name, result in results.items():
+    print(f"{color_name}: {'✓' if result.is_compatible else '✗'}")
+
+# Find a text color that works in both modes
+text_color = get_compatible_text_color(
+    background_light="#FFFFFF",
+    background_dark="#121212",
+    target_rating="AA"
+)
+
+# Get suggestions to fix incompatible colors
+suggestions = suggest_dark_mode_adjustments("#FF0000")
+for suggestion in suggestions:
+    print(f"Try {suggestion['color']} ({suggestion['adjustment']})")
+```
+
+### Batch Processing CLI
+
+Process multiple files at once with consolidated reports:
 
 ```bash
-python chromaspec.py input.png custom_output.pdf
+# Generate JSON report
+chromaspec --batch --pattern "*.svg" --output report.json
+
+# Generate CSV report
+chromaspec --batch --pattern "images/*.png" --output results.csv --format csv
+
+# Generate individual PDFs + consolidated report
+chromaspec --batch --pattern "*.jpg" --pdfs --output summary.json
+
+# Quiet mode (less output)
+chromaspec --batch --pattern "*.svg" --output report.json -q
+
+# Using a directory
+chromaspec --batch ./my_images --output report.json
 ```
 
-### Help
+Report format includes:
+
+- File-by-file color breakdown
+- Red, Green, and Blue color counts
+- Total colors per file
+- Summary statistics (total files, colors found, average colors per file)
+- Error tracking for failed files
+
+## Module Documentation
+
+### chromaspec.converters
+
+Color conversion functions:
+
+```python
+from chromaspec.converters import hex_to_rgb, rgb_to_hsl, rgb_to_cmyk
+
+# HEX to RGB
+rgb = hex_to_rgb("#FF0000")  # (255, 0, 0)
+
+# RGB to HSL
+hsl = rgb_to_hsl((255, 0, 0))  # (0.0, 100.0, 50.0)
+
+# RGB to CMYK
+cmyk = rgb_to_cmyk((255, 0, 0))  # (0, 100, 100, 0)
+
+# Calculate luminance (for contrast ratios)
+from chromaspec.converters import calculate_luminance
+lum = calculate_luminance((255, 0, 0))  # ~0.21
+```
+
+### chromaspec.analyzers
+
+Color analysis and classification:
+
+```python
+from chromaspec.analyzers import (
+    is_red_color, is_green_color, is_blue_color,
+    categorize_colors,
+    get_complementary_color, get_analogous_colors,
+    get_contrast_ratio, get_wcag_rating
+)
+
+# Classify colors
+is_red_color((255, 0, 0))  # True
+
+# Get color harmonies
+comp = get_complementary_color("#FF0000")  # "#00FFFF"
+analogs = get_analogous_colors("#FF0000")  # ("#FF9900", "#FF0099")
+
+# Accessibility analysis
+ratio = get_contrast_ratio("#FF0000", "#FFFFFF")  # ~3.98
+rating = get_wcag_rating(ratio)  # "AA Large"
+```
+
+### chromaspec.extractors
+
+Color extraction from files:
+
+```python
+from pathlib import Path
+from chromaspec.extractors import extract_colors
+
+# Extract colors with frequencies
+colors = extract_colors(Path("image.svg"))
+# Returns: {"#FF0000": 25.5, "#00FF00": 30.2, ...}
+
+# Extract specific formats
+from chromaspec.extractors import extract_hex_colors_from_svg
+svg_colors = extract_hex_colors_from_svg(svg_content)
+
+from chromaspec.extractors import extract_colors_from_image
+img_colors = extract_colors_from_image(Path("photo.png"))
+```
+
+### chromaspec.generators
+
+PDF report generation:
+
+```python
+from pathlib import Path
+from chromaspec.generators import generate_color_pdf
+from chromaspec.analyzers import categorize_colors
+
+# Generate PDF report
+colors = extract_colors(Path("image.png"))
+categories = categorize_colors(colors)
+generate_color_pdf(
+    Path("report.pdf"),
+    categories,
+    Path("image.png")
+)
+```
+
+## Development
+
+### Running Tests
 
 ```bash
-python chromaspec.py --help
+# Install development dependencies
+pip install -e .[dev]
+
+# Run tests
+pytest
+
+# Run tests with coverage
+pytest --cov=chromaspec --cov-report=html
+
+# Run specific test file
+pytest tests/test_converters.py
 ```
 
-## Supported Formats
+### Code Quality
 
-| Format | Extension       |
-| ------ | --------------- |
-| SVG    | `.svg`          |
-| PNG    | `.png`          |
-| JPEG   | `.jpg`, `.jpeg` |
-| GIF    | `.gif`          |
-| BMP    | `.bmp`          |
-| TIFF   | `.tiff`         |
-| WebP   | `.webp`         |
+```bash
+# Format code with Black
+black chromaspec tests
 
-## Example Output
+# Sort imports with isort
+isort chromaspec tests
 
-The generated PDF contains:
+# Lint with flake8
+flake8 chromaspec tests
 
-1. **Cover page** with:
+# Type check with mypy
+mypy chromaspec
+```
 
-   - Title and input filename
-   - Image preview (for image files)
-   - Color summary (count of Red, Green, Blue colors)
+### Pre-commit Hooks
 
-2. **Color Distribution page** with:
+```bash
+# Install pre-commit hooks
+pre-commit install
 
-   - Pie chart showing RGB distribution
-   - Bar chart comparing color counts
-   - Percentage breakdown
+# Run pre-commit manually
+pre-commit run --all-files
+```
 
-3. **Top Colors & Harmonies page** with:
+## Project Structure
 
-   - The 5 most frequently used colors
-   - HSL values for each color
-   - Complementary and analogous color suggestions
+```
+chromaspec/
+├── __init__.py              # Package initialization
+├── cli.py                  # Command-line interface with batch support
+├── exceptions.py            # Custom exception hierarchy
+├── analyzers/              # Color analysis modules
+│   ├── classification.py   # Color categorization
+│   ├── harmonies.py        # Color harmony calculations
+│   ├── accessibility.py   # WCAG contrast analysis
+│   └── dark_mode.py       # Dark mode compatibility checker
+├── converters/             # Color conversion modules
+│   ├── rgb_converters.py   # RGB, CMYK, HEX conversions
+│   └── hsl_converters.py  # HSL conversions
+├── extractors/             # Color extraction modules
+│   ├── svg_extractor.py   # SVG color extraction
+│   └── image_extractor.py # Image color extraction
+├── generators/             # PDF generation modules
+│   ├── pdf_pages.py       # PDF page layouts
+│   ├── charts.py          # Chart generation
+│   ├── accessibility_page.py
+│   ├── palette.py         # Color palette generator
+│   └── pdf_generator.py   # Main PDF generator
+└── utils/                  # Utility modules
+    ├── constants.py       # Configuration constants
+    └── validators.py     # Input validation
+```
 
-4. **Accessibility & Contrast page** with:
+## Performance Optimizations
 
-   - WCAG contrast ratios vs white and black
-   - AAA/AA/Fail ratings for each color
-   - Background usage recommendations
+- **LRU Caching**: RGB to HSL conversions are cached for repeated lookups
+- **Image Resizing**: Large images are automatically resized for efficient processing
+- **Memory Efficiency**: Color counting uses Counter directly on pixel data iterators
+- **Input Validation**: Size limits prevent DoS attacks on SVG processing
 
-5. **Color swatch pages** with:
-   - Section headers for Red, Green, and Blue
-   - Color rectangles with no borders
-   - Full color information: `#FF8040  RGB(255,128, 64)  CMYK(  0, 50, 75,  0)  0.153%`
+## Security
 
-- **Headers and footers** on all pages
+- Input validation for all user-provided data
+- Protection against ReDoS (Regex Denial of Service) attacks
+- File format validation before processing
+- Size limits for SVG content and color matches
 
-## Requirements
+## Contributing
 
-- Python 3.8+
-- reportlab >= 4.0.0
-- Pillow >= 10.0.0 (for image file support)
+Contributions are welcome! Please:
 
-## How It Works
-
-1. **Extract**:
-   - For SVG files: Parses and finds all HEX color codes using regex
-   - For images: Analyzes pixel data to extract dominant colors with frequencies
-2. **Categorize**: Groups colors into Red, Green, and Blue based on dominant RGB component
-3. **Convert**: Calculates RGB and CMYK values for each color
-4. **Generate**: Creates a professional PDF document with cover page and organized color swatch sections
-
-## Color Classification
-
-A color is classified based on its dominant RGB component:
-
-- **Red**: Red component > Green and Blue
-- **Green**: Green component > Red and Blue
-- **Blue**: Blue component > Red and Green
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes with tests
+4. Run the linters and tests
+5. Submit a pull request
 
 ## License
 
@@ -164,19 +415,20 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Citation
 
-If you use ChromaSpec in your research, please cite it:
+If you use ChromaSpec in your research, please cite:
 
 ```bibtex
-@software{semoglou_chromaspec_2025,
-  author       = {Semoglou, Michail},
-  title        = {ChromaSpec: Color Palette Analyzer},
-  year         = {2025},
-  publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.17864788},
-  url          = {https://doi.org/10.5281/zenodo.17864788}
+@software{chromaspec,
+  author = {Semoglou, Michail},
+  title = {ChromaSpec: Color Palette Analyzer},
+  year = {2024},
+  url = {https://github.com/MichailSemoglou/chromaspec}
 }
 ```
 
-## Contributing
+## Acknowledgments
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+- Color conversion algorithms based on standard color science
+- WCAG accessibility calculations follow W3C specifications
+- ReportLab for PDF generation
+- Pillow for image processing

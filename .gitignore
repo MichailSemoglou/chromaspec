@@ -20,6 +20,12 @@ dist/
 build/
 *.egg-info/
 
+# Testing
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+
 # Output files
 *.pdf
 
@@ -29,3 +35,16 @@ Thumbs.db
 
 # Test/sample files
 *.svg
+
+# Image files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.webp
+
+# Documentation files (internal review)
+ARCHITECTURE.md
+CODE_REVIEW_RECOMMENDATIONS.md

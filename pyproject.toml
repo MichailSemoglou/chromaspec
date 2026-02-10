@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "chromaspec"
-version = "1.0.0"
+version = "1.1.0"
 description = "Python CLI tool for color palette analysis. Extract colors from images and SVG files, generate professional PDF swatches with HEX/RGB/CMYK values, frequency stats, pie charts, color harmonies, and WCAG accessibility ratings."
 readme = "README.md"
 license = {text = "MIT"}

@@ -1,0 +1,38 @@
+{
+  "title": "ChromaSpec: Professional Color Palette Analysis Tool",
+  "description": "A Python CLI tool for extracting and analyzing color palettes from images and SVG files. ChromaSpec generates professional PDF reports with Swiss typographic design, featuring HEX/RGB/CMYK color values, frequency statistics, color harmonies (complementary, analogous), WCAG accessibility ratings, and enterprise-grade security validations. Ideal for designers, developers, and accessibility professionals.",
+  "creators": [
+    {
+      "name": "Semoglou, Michail",
+      "affiliation": "College of Design and Innovation, Tongji University",
+      "orcid": "0009-0003-3268-5657"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "color",
+    "palette",
+    "color-extraction",
+    "image-analysis",
+    "svg",
+    "pdf",
+    "color-swatch",
+    "design",
+    "accessibility",
+    "wcag",
+    "python",
+    "typography",
+    "swiss-design",
+    "reportlab",
+    "color-theory"
+  ],
+  "upload_type": "software",
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/MichailSemoglou/chromaspec",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}
