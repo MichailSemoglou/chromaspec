@@ -26,13 +26,13 @@ def rgb_to_hsl(rgb: Tuple[int, int, int]) -> Tuple[float, float, float]:
 
     max_c = max(r, g, b)
     min_c = min(r, g, b)
-    l = (max_c + min_c) / 2
+    lightness = (max_c + min_c) / 2
 
     if max_c == min_c:
         h = s = 0.0
     else:
         d = max_c - min_c
-        s = d / (2 - max_c - min_c) if l > 0.5 else d / (max_c + min_c)
+        s = d / (2 - max_c - min_c) if lightness > 0.5 else d / (max_c + min_c)
 
         if max_c == r:
             h = (g - b) / d + (6 if g < b else 0)
@@ -42,27 +42,27 @@ def rgb_to_hsl(rgb: Tuple[int, int, int]) -> Tuple[float, float, float]:
             h = (r - g) / d + 4
         h /= 6
 
-    return (round(h * 360, 1), round(s * 100, 1), round(l * 100, 1))
+    return (round(h * 360, 1), round(s * 100, 1), round(lightness * 100, 1))
 
 
-def hsl_to_rgb(h: float, s: float, l: float) -> Tuple[int, int, int]:
+def hsl_to_rgb(h: float, s: float, lightness: float) -> Tuple[int, int, int]:
     """
     Convert HSL to RGB.
 
     Args:
         h: Hue (0-360)
         s: Saturation (0-100)
-        l: Lightness (0-100)
+        lightness: Lightness (0-100)
 
     Returns:
         A tuple of (red, green, blue) values (0-255).
     """
     h = h / 360.0
     s = s / 100.0
-    l = l / 100.0
+    lightness = lightness / 100.0
 
     if s == 0:
-        r = g = b = l
+        r = g = b = lightness
     else:
 
         def hue_to_rgb(p: float, q: float, t: float) -> float:
@@ -78,8 +78,8 @@ def hsl_to_rgb(h: float, s: float, l: float) -> Tuple[int, int, int]:
                 return p + (q - p) * (2 / 3 - t) * 6
             return p
 
-        q = l * (1 + s) if l < 0.5 else l + s - l * s
-        p = 2 * l - q
+        q = lightness * (1 + s) if lightness < 0.5 else lightness + s - lightness * s
+        p = 2 * lightness - q
         r = hue_to_rgb(p, q, h + 1 / 3)
         g = hue_to_rgb(p, q, h)
         b = hue_to_rgb(p, q, h - 1 / 3)

@@ -2,8 +2,6 @@
 Tests for color conversion functions.
 """
 
-from functools import lru_cache
-
 import pytest
 
 from chromaspec.converters import (
@@ -133,9 +131,9 @@ class TestHslToRgb:
             (0, 0, 50, (128, 128, 128)),
         ],
     )
-    def test_hsl_to_rgb_valid(self, h, s, l, expected_rgb):
+    def test_hsl_to_rgb_valid(self, h, s, lightness, expected_rgb):
         """Test valid HSL to RGB conversions."""
-        assert hsl_to_rgb(h, s, l) == expected_rgb
+        assert hsl_to_rgb(h, s, lightness) == expected_rgb
 
 
 class TestRoundTripConversions:

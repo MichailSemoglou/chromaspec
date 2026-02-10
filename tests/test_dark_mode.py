@@ -123,9 +123,6 @@ class TestCheckDarkModeCompatibility:
         """Test with different WCAG rating targets."""
         result_aa = check_dark_mode_compatibility("#333333", min_rating="AA")
         result_aaa = check_dark_mode_compatibility("#333333", min_rating="AAA")
-        result_aa_large = check_dark_mode_compatibility(
-            "#333333", min_rating="AA Large"
-        )
 
         # AAA should be stricter than AA
         assert result_aa.light_contrast >= 0

@@ -27,7 +27,7 @@ from chromaspec.utils.constants import (
     SUPPORTED_EXTENSIONS,
     LoggingConfig,
 )
-from chromaspec.utils.security import sanitize_filename, validate_safe_path
+from chromaspec.utils.security import validate_safe_path
 from chromaspec.utils.validators import validate_output_path
 
 # Configure logging
@@ -409,8 +409,6 @@ def main() -> int:
             return 1
 
         # Find matching files
-        import glob
-
         pattern_path = Path(args.pattern)
         base_dir = pattern_path.parent if str(pattern_path.parent) != "." else Path(".")
         glob_pattern = pattern_path.name

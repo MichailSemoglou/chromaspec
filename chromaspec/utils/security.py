@@ -44,7 +44,6 @@ def validate_safe_path(path: Path, base_dir: Optional[Path] = None) -> bool:
         True
     """
     # Check for dangerous patterns in the original path string
-    path_str = str(path)
     if ".." in path.parts:
         raise ValidationError(
             f"Path '{path}' contains directory traversal pattern '..' "

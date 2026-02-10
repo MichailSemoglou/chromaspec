@@ -2,8 +2,6 @@
 Tests for color extraction functions.
 """
 
-from pathlib import Path
-
 import pytest
 
 from chromaspec.extractors import extract_hex_colors_from_svg

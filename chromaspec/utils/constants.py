@@ -6,7 +6,7 @@ and make the codebase more maintainable.
 """
 
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.units import cm, inch
+from reportlab.lib.units import cm
 
 # File format constants
 SVG_EXTENSIONS = {".svg"}

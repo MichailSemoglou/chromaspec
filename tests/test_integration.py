@@ -10,27 +10,20 @@ These tests verify complete workflows from end to end, including:
 """
 
 import json
-import tempfile
 from pathlib import Path
-from typing import Dict
 
 import pytest
 
 from chromaspec.analyzers import categorize_colors
 from chromaspec.cli import process_batch, process_file
-from chromaspec.exceptions import (
-    ChromaSpecError,
-    UnsupportedFormatError,
-    ValidationError,
-)
+from chromaspec.exceptions import ChromaSpecError, ValidationError
 from chromaspec.extractors import extract_colors
-from chromaspec.generators import generate_color_pdf
 
 
 def _is_pillow_available():
     """Check if Pillow is available."""
     try:
-        import PIL
+        import PIL  # noqa: F401
 
         return True
     except ImportError:
@@ -187,9 +180,7 @@ class TestBatchProcessingWorkflow:
         output_file = tmp_path / "summary.json"
 
         # Act
-        results = process_batch(
-            files, output_file, format="json", generate_pdfs=True, quiet=True
-        )
+        process_batch(files, output_file, format="json", generate_pdfs=True, quiet=True)
 
         # Assert: Verify individual PDFs created
         for svg_path in files:
@@ -274,13 +265,13 @@ class TestSecurityValidationWorkflows:
         # With defusedxml, this should raise ValidationError
         # Without it, it should at least not expose file contents
         try:
-            result = process_file(malicious_svg, output_path, quiet=True)
+            process_file(malicious_svg, output_path, quiet=True)
             # If it doesn't raise, verify no file content leaked
             # (File system access should be blocked by defusedxml)
         except ValidationError:
             # Expected with defusedxml - XXE blocked
             pass
-        except Exception as e:
+        except Exception:
             # Some parsing error is acceptable
             pass
 
@@ -316,7 +307,7 @@ class TestSecurityValidationWorkflows:
         # Note: The actual behavior depends on implementation
         # At minimum, should not allow arbitrary file writes
         try:
-            result = process_file(svg_path, dangerous_output, quiet=True)
+            process_file(svg_path, dangerous_output, quiet=True)
             # If it succeeds, verify it didn't actually write to /etc/passwd
             assert not Path("/etc/passwd.svg").exists()
         except (ValidationError, OSError, PermissionError):

@@ -9,7 +9,6 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 
 from reportlab.lib.enums import TA_LEFT
-from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import Paragraph
 
@@ -20,14 +19,7 @@ try:
 except ImportError:
     PIL_AVAILABLE = False
 
-from chromaspec.analyzers import (
-    get_analogous_colors,
-    get_complementary_color,
-    get_contrast_ratio,
-    get_wcag_rating,
-)
-from chromaspec.converters import hex_to_rgb, rgb_to_cmyk, rgb_to_hsl
-from chromaspec.utils.constants import IMAGE_EXTENSIONS, ColorConstants, PDFLayout
+from chromaspec.utils.constants import IMAGE_EXTENSIONS, PDFLayout
 
 logger = logging.getLogger(__name__)
 

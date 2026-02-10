@@ -15,7 +15,6 @@ from chromaspec.analyzers import (
     is_green_color,
     is_red_color,
 )
-from chromaspec.exceptions import ValidationError
 
 
 class TestColorClassification:

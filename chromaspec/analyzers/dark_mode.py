@@ -6,11 +6,9 @@ in both light and dark themes by checking contrast ratios.
 
 import logging
 from dataclasses import dataclass
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 from chromaspec.analyzers import get_contrast_ratio, get_wcag_rating
-from chromaspec.converters import hex_to_rgb, rgb_to_hsl
-from chromaspec.exceptions import ValidationError
 from chromaspec.utils.validators import validate_hex_color
 
 logger = logging.getLogger(__name__)
@@ -170,10 +168,7 @@ def generate_dark_mode_palette(
     Raises:
         ValidationError: If primary color is invalid.
     """
-    from chromaspec.generators.palette import (
-        generate_accessibility_palette,
-        generate_triadic_palette,
-    )
+    from chromaspec.generators.palette import generate_triadic_palette
 
     validate_hex_color(primary)
 
@@ -285,7 +280,6 @@ def get_compatible_text_color(
             return color
 
     # If none found, try adjusting brightness
-    from chromaspec.generators.palette import _adjust_brightness
 
     for i in range(5, 95, 5):
         # Try grays at different brightness levels

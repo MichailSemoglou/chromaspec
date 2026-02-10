@@ -5,7 +5,7 @@ This module provides a simple dependency injection container to improve
 testability and reduce coupling between modules.
 """
 
-from typing import Any, Callable, Dict, Type
+from typing import Any, Callable, Dict
 
 
 class ServiceContainer:

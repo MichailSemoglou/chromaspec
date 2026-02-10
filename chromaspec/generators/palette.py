@@ -6,11 +6,10 @@ that meet WCAG accessibility standards for text and background colors.
 
 import logging
 from dataclasses import dataclass
-from typing import List, Optional, Tuple
+from typing import Optional, Tuple
 
 from chromaspec.analyzers import get_contrast_ratio, get_wcag_rating
 from chromaspec.converters import hex_to_rgb, hsl_to_rgb, rgb_to_hsl
-from chromaspec.exceptions import ValidationError
 from chromaspec.utils.validators import validate_hex_color
 
 logger = logging.getLogger(__name__)
@@ -86,9 +85,9 @@ def _rotate_hue(hex_color: str, degrees: int) -> str:
         HEX color string with rotated hue.
     """
     rgb = hex_to_rgb(hex_color)
-    h, s, l = rgb_to_hsl(rgb)
+    h, s, lightness = rgb_to_hsl(rgb)
     new_h = (h + degrees) % 360
-    new_rgb = hsl_to_rgb(new_h, s, l)
+    new_rgb = hsl_to_rgb(new_h, s, lightness)
     return f"#{new_rgb[0]:02X}{new_rgb[1]:02X}{new_rgb[2]:02X}"
 
 
@@ -103,9 +102,9 @@ def _adjust_brightness(hex_color: str, amount: int) -> str:
         HEX color string with adjusted brightness.
     """
     rgb = hex_to_rgb(hex_color)
-    h, s, l = rgb_to_hsl(rgb)
-    new_l = max(0, min(100, l + amount))
-    new_rgb = hsl_to_rgb(h, s, new_l)
+    h, s, lightness = rgb_to_hsl(rgb)
+    new_lightness = max(0, min(100, lightness + amount))
+    new_rgb = hsl_to_rgb(h, s, new_lightness)
     return f"#{new_rgb[0]:02X}{new_rgb[1]:02X}{new_rgb[2]:02X}"
 
 

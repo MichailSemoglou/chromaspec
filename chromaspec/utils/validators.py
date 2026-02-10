@@ -10,12 +10,7 @@ from pathlib import Path
 from typing import Optional
 
 from chromaspec.exceptions import ValidationError
-from chromaspec.utils.constants import (
-    IMAGE_EXTENSIONS,
-    SUPPORTED_EXTENSIONS,
-    SVG_EXTENSIONS,
-    ImageProcessing,
-)
+from chromaspec.utils.constants import SUPPORTED_EXTENSIONS, ImageProcessing
 
 logger = logging.getLogger(__name__)
 

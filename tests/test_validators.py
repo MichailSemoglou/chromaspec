@@ -2,8 +2,6 @@
 Tests for validation functions.
 """
 
-from pathlib import Path
-
 import pytest
 
 from chromaspec.exceptions import ValidationError
