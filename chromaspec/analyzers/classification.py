@@ -87,7 +87,7 @@ def is_blue_color(rgb: Tuple[int, int, int]) -> bool:
 
 
 def categorize_colors(
-    hex_colors_with_freq: Dict[str, float]
+    hex_colors_with_freq: Dict[str, float],
 ) -> Dict[str, List[Tuple[str, float]]]:
     """
     Categorize colors into Red, Green, and Blue groups with frequencies.
