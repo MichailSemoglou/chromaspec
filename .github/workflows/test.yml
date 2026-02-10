@@ -28,15 +28,14 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          pytest --cov=chromaspec --cov-report=xml --cov-report=term-missing
+          python -m pytest --cov=chromaspec --cov-report=xml --cov-report=term-missing
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - name: Upload coverage
+        if: matrix.python-version == '3.11'
+        uses: actions/upload-artifact@v4
         with:
-          file: ./coverage.xml
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: false
+          name: coverage-report
+          path: coverage.xml
 
   lint:
     runs-on: ubuntu-latest
@@ -58,7 +57,7 @@ jobs:
         run: black --check chromaspec tests
 
       - name: Check import sorting with isort
-        run: isort --check-only chromaspec tests
+        run: isort --check-only --profile black chromaspec tests
 
       - name: Lint with flake8
         run: flake8 chromaspec tests --count --select=E9,F63,F7,F82 --show-source --statistics

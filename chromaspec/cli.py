@@ -12,7 +12,9 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from chromaspec.analyzers import categorize_colors
-from chromaspec.exceptions import ChromaSpecError
+from chromaspec.exceptions import (
+    ChromaSpecError,
+)
 from chromaspec.exceptions import FileNotFoundError as ChromaSpecFileNotFoundError
 from chromaspec.exceptions import (
     ImageProcessingError,
