@@ -9,9 +9,10 @@ resource exhaustion.
 import hashlib
 import logging
 import signal
+import types
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, Generator, Optional
 
 from chromaspec.exceptions import ValidationError
 
@@ -187,7 +188,7 @@ def calculate_file_hash(file_path: Path, algorithm: str = "sha256") -> str:
 
 
 @contextmanager
-def timeout(seconds: int):
+def timeout(seconds: int) -> Generator[None, None, None]:
     """
     Context manager to enforce timeout on operations.
 
@@ -211,7 +212,7 @@ def timeout(seconds: int):
         Unix/Linux only. On Windows, this is a no-op (doesn't enforce timeout).
     """
 
-    def timeout_handler(signum, frame):
+    def timeout_handler(signum: int, frame: Optional[types.FrameType]) -> None:
         raise TimeoutError(f"Operation exceeded {seconds} seconds")
 
     # Only works on Unix-like systems

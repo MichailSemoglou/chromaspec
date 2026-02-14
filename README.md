@@ -7,6 +7,13 @@ A professional Python package for color palette extraction, analysis, and visual
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17864788.svg)](https://doi.org/10.5281/zenodo.17864788)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Type Checked: mypy](https://img.shields.io/badge/type%20checked-mypy-blue.svg)](http://mypy-lang.org/)
+
+## Statement of Need
+
+In contemporary UI/UX and accessibility research, the ability to analyze and generate color palettes that satisfy WCAG standards is essential. Existing tools either extract colors from images but lack accessibility analysis, or provide accessibility metrics without automated extraction. Researchers often resort to a multi-step workflow — extracting colors manually, then using separate libraries to evaluate contrast — which is error-prone and time-consuming.
+
+ChromaSpec addresses this gap by offering an _end-to-end_ solution: automated extraction from SVG and raster images, built-in WCAG 2.1 compliance checks, dark-mode compatibility assessment, and generation of WCAG-compliant palettes — all within a single, well-documented Python package. This integration reduces experimental overhead, improves reproducibility, and enables large-scale color studies that were previously impractical.
 
 ## Documentation
 
@@ -424,7 +431,7 @@ If you use ChromaSpec in your research, please cite:
 @software{chromaspec,
   author = {Semoglou, Michail},
   title = {ChromaSpec: Color Palette Analyzer},
-  version = {1.1.1},
+  version = {1.2.0},
   year = {2026},
   url = {https://github.com/MichailSemoglou/chromaspec},
   doi = {10.5281/zenodo.17864788}

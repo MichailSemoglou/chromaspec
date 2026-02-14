@@ -7,6 +7,8 @@ This module provides functions for generating pie charts and bar charts in PDF r
 import logging
 from typing import Dict, List, Tuple
 
+from reportlab.pdfgen import canvas
+
 from chromaspec.analyzers.harmonies import get_analogous_colors, get_complementary_color
 from chromaspec.converters import hex_to_rgb, rgb_to_hsl
 from chromaspec.utils.constants import ColorConstants, PDFLayout
@@ -15,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 def draw_pie_chart(
-    pdf,
+    pdf: "canvas.Canvas",
     color_categories: Dict[str, List[Tuple[str, float]]],
     center_x: float,
     center_y: float,
@@ -65,7 +67,7 @@ def draw_pie_chart(
 
 
 def draw_bar_chart(
-    pdf,
+    pdf: "canvas.Canvas",
     color_categories: Dict[str, List[Tuple[str, float]]],
     x: float,
     y: float,
@@ -126,7 +128,7 @@ def draw_bar_chart(
 
 
 def draw_statistics_page(
-    pdf,
+    pdf: "canvas.Canvas",
     color_categories: Dict[str, List[Tuple[str, float]]],
     width: float,
     height: float,
@@ -220,7 +222,7 @@ def draw_statistics_page(
 
 
 def draw_top_colors_page(
-    pdf,
+    pdf: "canvas.Canvas",
     color_categories: Dict[str, List[Tuple[str, float]]],
     width: float,
     height: float,

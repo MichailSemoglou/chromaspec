@@ -11,9 +11,9 @@ from typing import Any, Callable, Dict
 class ServiceContainer:
     """Simple service container for dependency injection."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._services: Dict[str, Any] = {}
-        self._factories: Dict[str, Callable] = {}
+        self._factories: Dict[str, Callable[..., Any]] = {}
 
     def register(self, name: str, factory: Callable) -> None:
         """Register a service factory."""

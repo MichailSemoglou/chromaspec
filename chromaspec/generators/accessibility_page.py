@@ -8,6 +8,8 @@ analysis page in PDF reports.
 import logging
 from typing import Dict, List, Tuple
 
+from reportlab.pdfgen import canvas
+
 from chromaspec.analyzers import get_contrast_ratio, get_wcag_rating
 from chromaspec.utils.constants import ColorConstants, PDFLayout
 
@@ -15,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 def draw_accessibility_page(
-    pdf,
+    pdf: "canvas.Canvas",
     color_categories: Dict[str, List[Tuple[str, float]]],
     width: float,
     height: float,

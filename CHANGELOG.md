@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-02-14
+
+### Added
+
+- Comprehensive type annotations across all modules (PEP 561 `py.typed` marker)
+- Strict mypy configuration (`disallow_untyped_defs`, `check_untyped_defs`, `warn_return_any`)
+- Python 3.13 support in CI test matrix and classifiers
+- mypy type-checked badge to README
+- "Statement of Need" section in README for JOSS pre-flight compliance
+
+### Changed
+
+- Upgraded GitHub Actions `actions/setup-python` from v4 to v5
+- CI lint and security jobs now run on Python 3.13 (previously 3.11)
+- Coverage upload now uses Python 3.13 matrix entry
+- Stricter mypy settings enforced via `mypy.ini`
+
+### Fixed
+
+- Added missing type annotations for `pdf` parameters in all generator functions (now `canvas.Canvas`)
+- Added return type to `timeout()` context manager (`Generator[None, None, None]`)
+- Added type annotation on `timeout_handler` signal callback
+- Added `-> None` return type to `ServiceContainer.__init__` and `ColorExtractor.__init__`
+
 ## [1.1.1] - 2026-02-10
 
 ### Fixed

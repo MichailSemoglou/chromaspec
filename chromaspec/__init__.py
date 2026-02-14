@@ -9,10 +9,10 @@ Also includes:
 - Dark mode compatibility checker
 - Batch processing support via CLI
 
-Version: 1.1.1
+Version: 1.2.0
 """
 
-__version__ = "1.1.1"
+__version__ = "1.2.0"
 __author__ = "Michail Semoglou"
 
 from chromaspec.analyzers import categorize_colors

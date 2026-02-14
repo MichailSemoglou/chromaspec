@@ -19,12 +19,14 @@ try:
 except ImportError:
     PIL_AVAILABLE = False
 
+from reportlab.pdfgen import canvas
+
 from chromaspec.utils.constants import IMAGE_EXTENSIONS, PDFLayout
 
 logger = logging.getLogger(__name__)
 
 
-def draw_header(pdf, width: float, height: float) -> None:
+def draw_header(pdf: "canvas.Canvas", width: float, height: float) -> None:
     """
     Draw a minimal header following Swiss typographic principles.
 
@@ -53,7 +55,7 @@ def draw_header(pdf, width: float, height: float) -> None:
     )
 
 
-def draw_footer(pdf, width: float, page_number: int) -> None:
+def draw_footer(pdf: "canvas.Canvas", width: float, page_number: int) -> None:
     """
     Draw a minimal footer with systematic alignment.
 
@@ -85,7 +87,7 @@ def draw_footer(pdf, width: float, page_number: int) -> None:
 
 
 def draw_cover_page(
-    pdf,
+    pdf: "canvas.Canvas",
     input_path: Path,
     color_categories: Dict[str, List[Tuple[str, float]]],
     width: float,

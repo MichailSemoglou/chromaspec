@@ -82,8 +82,8 @@ class SVGExtractionStrategy(ColorExtractionStrategy):
 class ColorExtractor:
     """Context class that uses extraction strategies."""
 
-    def __init__(self):
-        self._strategies = [
+    def __init__(self) -> None:
+        self._strategies: list[ColorExtractionStrategy] = [
             ImageExtractionStrategy(),
             SVGExtractionStrategy(),
         ]
