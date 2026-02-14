@@ -57,7 +57,7 @@ def extract_colors_from_image(
         with Image.open(image_path) as img:
             # Convert to RGB if necessary
             if img.mode != "RGB":
-                img = img.convert("RGB")
+                img: Image.Image = img.convert("RGB")  # type: ignore[no-redef]
 
             # Resize large images for performance (this is the key optimization)
             max_dimension = ImageProcessing.MAX_DIMENSION
